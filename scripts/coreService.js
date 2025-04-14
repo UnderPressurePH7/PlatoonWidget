@@ -38,8 +38,8 @@ class CoreService {
   }
 
   getRandomDelay() {
-    const min = 50;
-    const max = 100;
+    const min = 10;
+    const max = 50;
     return this.sleep(Math.floor(Math.random() * (max - min + 5)) + min);
   }
 
@@ -527,6 +527,8 @@ class CoreService {
 
     this.PlayersInfo[this.curentPlayerId] = this.sdk.data.player.name.value;
 
+    this.sleep(1000);
+    this.getRandomDelay();
     this.serverData();
   }
 
@@ -713,10 +715,11 @@ class CoreService {
         }
       }
     }
-    this.warmupServer();
+    //this.warmupServer();
     this.saveState();
-    this.getRandomDelay(); // тест
+    this.getRandomDelay();
     if (this.isExistsPlayerRecord()) {
+      //this.saveToServer();
       this.serverData();
     }
 
