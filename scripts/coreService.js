@@ -519,6 +519,7 @@ class CoreService {
 
     const playersID = this.getPlayersIds();
     this.curentPlayerId = this.sdk.data.player.id.value;
+    this.curentArenaId = null;
 
     if (this.curentPlayerId === null) return;
     if ((this.isInPlatoon && playersID.length > 3) || (!this.isInPlatoon && playersID.length >= 1)) {
@@ -721,7 +722,6 @@ class CoreService {
     if (this.isExistsPlayerRecord()) {
       //this.saveToServer();
       this.serverData();
-      this.curentArenaId = null;
     }
 
   }
