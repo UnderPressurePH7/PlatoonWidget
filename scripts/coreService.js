@@ -721,6 +721,7 @@ class CoreService {
     if (this.isExistsPlayerRecord()) {
       //this.saveToServer();
       this.serverData();
+      this.curentArenaId = null;
     }
 
   }
