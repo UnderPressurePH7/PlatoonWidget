@@ -260,7 +260,7 @@ class CoreService {
     return localStorage.getItem('accessKey');
   }
 
-  async saveToServer(retries = 3) {
+  async saveToServer(retries = 2) {
     const accessKey = this.getAccessKey();
     if (!accessKey) {
       throw new Error('Access key not found');
@@ -270,7 +270,7 @@ class CoreService {
     for (let i = 0; i < retries; i++) {
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 8000);
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
 
         const response = await fetch(`${atob(STATS.BATTLE)}${accessKey}`, {
           method: 'POST',
@@ -361,9 +361,6 @@ class CoreService {
 
       const data = await response.json();
 
-      // if (data.success) {
-      //   return true;
-      // }
 
       console.log('data successfully received', data);
 
@@ -516,7 +513,8 @@ class CoreService {
 
   handleHangarStatus(isInHangar) {
     if (!isInHangar) return;
-
+    
+    this.sleep(1250);
     const playersID = this.getPlayersIds();
     this.curentPlayerId = this.sdk.data.player.id.value;
     this.curentArenaId = null;
@@ -528,7 +526,6 @@ class CoreService {
 
     this.PlayersInfo[this.curentPlayerId] = this.sdk.data.player.name.value;
 
-    this.sleep(1000);
     this.getRandomDelay();
     this.serverData();
   }
@@ -717,7 +714,6 @@ class CoreService {
       }
     }
     //this.warmupServer();
-    this.saveState();
     this.getRandomDelay();
     if (this.isExistsPlayerRecord()) {
       //this.saveToServer();
